@@ -13,7 +13,7 @@ This project was created using the Android Java programming language.
 ![image](https://github.com/Ex-Lord-Ryu/UTS_Pemrograman_Mobile/assets/135092655/9e9364b2-dd6e-4fa0-b3b2-923f7eefa453)
 
 # Created By
-Name   : Rangga Yuda Pratama
-NIM    : 21083000081
-Kelas  : 6A
+- Name   : Rangga Yuda Pratama
+- NIM    : 21083000081
+- Kelas  : 6A
 
