@@ -22,4 +22,5 @@ Detail Screen: Show the user's personal information that has been inputted.
 # Screenshots
 ![image](https://github.com/Ex-Lord-Ryu/UTS_Pemrograman_Mobile/assets/135092655/42659e06-7151-406f-b3ce-024fcedc356c)
 ![image](https://github.com/Ex-Lord-Ryu/UTS_Pemrograman_Mobile/assets/135092655/e6bada1f-14f6-4eab-b95a-0ebdbcfd724c)
+
 ![image](https://github.com/Ex-Lord-Ryu/UTS_Pemrograman_Mobile/assets/135092655/9e9364b2-dd6e-4fa0-b3b2-923f7eefa453)
