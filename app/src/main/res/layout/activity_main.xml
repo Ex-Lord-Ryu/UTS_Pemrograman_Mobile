@@ -124,6 +124,7 @@
                     android:id="@+id/etAlamat"
                     android:layout_width="292dp"
                     android:layout_weight="2"
+                    android:minLines="2"
                     android:minHeight="48dp"
                     android:hint="Masukan Alamat" />
             </TableRow>
@@ -144,7 +145,7 @@
                     android:id="@+id/etUsia"
                     android:layout_width="292dp"
                     android:minHeight="48dp"
-                    android:hint="Auto Input Usia" />
+                    android:hint="Usia" />
             </TableRow>
 
             <TableRow
@@ -250,7 +251,7 @@
                     android:layout_weight="1"
                     android:inputType="textEmailAddress"
                     android:minHeight="48dp"
-                    android:hint="Masukan Email " />
+                    android:hint="example@gmail.com" />
             </TableRow>
 
             <LinearLayout

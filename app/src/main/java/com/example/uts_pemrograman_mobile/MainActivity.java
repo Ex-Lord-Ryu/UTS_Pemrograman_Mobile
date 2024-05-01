@@ -21,6 +21,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MainActivity extends Activity {
 
@@ -31,6 +33,7 @@ public class MainActivity extends Activity {
     private CheckBox cbDevelopmentAndIT, cbAIServices, cbDesignCreative, cbWriting, cbFinanceAndAccounting;
     private Button btnReset, btnSubmit;
     private Calendar myCalendar;
+    private DatePickerDialog datePickerDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,10 +88,23 @@ public class MainActivity extends Activity {
                 submitForm();
             }
         });
+
+
+        // Initialize DatePickerDialog
+        datePickerDialog = new DatePickerDialog(
+                this,
+                date,
+                myCalendar.get(Calendar.YEAR),
+                myCalendar.get(Calendar.MONTH),
+                myCalendar.get(Calendar.DAY_OF_MONTH)
+        );
+
+        // Set min date for DatePickerDialog to today's date
+        datePickerDialog.getDatePicker().setMaxDate(Calendar.getInstance().getTimeInMillis());
     }
 
     private void showDatePickerDialog() {
-        new DatePickerDialog(MainActivity.this, date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+        datePickerDialog.show();
     }
 
     // DatePickerDialog.OnDateSetListener
@@ -102,6 +118,20 @@ public class MainActivity extends Activity {
             calculateAge();
         }
     };
+
+    private void calculateAge() {
+        // Get current date
+        Calendar today = Calendar.getInstance();
+
+        // Calculate age based on selected date of birth
+        int age = today.get(Calendar.YEAR) - myCalendar.get(Calendar.YEAR);
+        if (today.get(Calendar.DAY_OF_YEAR) < myCalendar.get(Calendar.DAY_OF_YEAR)) {
+            age--;
+        }
+
+        // Set the calculated age to the EditText
+        etUsia.setText(String.valueOf(age));
+    }
 
     private void updateLabel() {
         String myFormat = "MM/dd/yy";
@@ -244,9 +274,14 @@ public class MainActivity extends Activity {
             return;
         }
 
-        // Validasi Email
-        if (email.isEmpty() || !isValidEmail(email)) {
-            Toast.makeText(this, "Email tidak valid", Toast.LENGTH_SHORT).show();
+        if (!isValidEmail(email)) {
+            Toast.makeText(MainActivity.this, "Format email tidak valid", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Validate email domain
+        if (!isValidEmailDomain(email)) {
+            Toast.makeText(MainActivity.this, "Domain email tidak diizinkan", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -280,23 +315,19 @@ public class MainActivity extends Activity {
 
     // Method to validate email address
     private boolean isValidEmail(String email) {
-        // Implement your logic to validate email address here
-        // For simplicity, let's just check if email contains @ symbol
-        return email.contains("@") && (email.contains(".com") || email.contains(".net") || email.contains(".org"));
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
     }
 
-
-    private void calculateAge() {
-        // Get current date
-        Calendar today = Calendar.getInstance();
-
-        // Calculate age based on selected date of birth
-        int age = today.get(Calendar.YEAR) - myCalendar.get(Calendar.YEAR);
-        if (today.get(Calendar.DAY_OF_YEAR) < myCalendar.get(Calendar.DAY_OF_YEAR)) {
-            age--;
+    private boolean isValidEmailDomain(String email) {
+        String[] allowedDomains = {"@gmail.com", "@mail.com"};
+        for (String domain : allowedDomains) {
+            if (email.endsWith(domain)) {
+                return true;
+            }
         }
-
-        // Set the calculated age to the EditText
-        etUsia.setText(String.valueOf(age));
+        return false;
     }
 }
